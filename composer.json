@@ -1,0 +1,19 @@
+{
+    "name": "jjware/sequence",
+    "description": "Singly linked list for PHP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [{
+        "name": "Joshua Jones",
+        "email": "joshua.jones.software@gmail.com"
+    }],
+    "autoload": {
+        "psr-4": {"JJWare\\Util\\": "src"}
+    },
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1"
+    }
+}
