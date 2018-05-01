@@ -3,6 +3,7 @@
 namespace JJWare\Utils\Sequence;
 
 use JJWare\Utils\Option\Option;
+use JJWare\Utils\TailCall\TailCall;
 
 abstract class Sequence 
 {
