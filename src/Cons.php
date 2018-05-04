@@ -76,4 +76,27 @@ class Cons extends Sequence
             ? $this
             : $this->drop_($this, $n)->eval();
     }
+
+    private static function dropWhile_(Sequence $s, callable $p): TailCall
+    {
+        return !$s.isEmpty() && call_user_func($p, $s->head())
+            ? TailCall::sus(function () use ($s, $p) {
+                return self::dropWhile_($s->tail(), $p);
+            })
+            : TailCall::ret($s);
+    }
+
+    public function dropWhile(callable $p): \JJWare\Utils\Sequence\Sequence
+    {
+        return self::dropWhile_($this, $p)->eval();
+    }
+
+    private static function reverse_(Sequence $acc, Sequence $s): TailCall
+    {
+        return $s->isEmpty()
+            ? TailCall::ret($acc)
+            : TailCall::sus(function () use ($acc, $s) {
+                return self::reverse_(new Cons($s->head(), $acc), $s->tail());
+            });
+    }
 }
