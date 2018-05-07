@@ -34,7 +34,7 @@ class Cons extends Sequence
             ? $this
             : $n > 0
                 ? new Cons($this->head(), $this->tail()->take($n -  1))
-                : Nil::instance;
+                : Sequence::nil();
     }
 
     public function takeWhile(callable $p): Sequence
@@ -43,7 +43,7 @@ class Cons extends Sequence
             ? $this
             : call_user_func($p, $this->head())
                 ? new Cons($this->head(), $this->tail()->takeWhile($p))
-                : Nil::instance;
+                : Sequence::nil();
     }
 
     public function isEmpty(): bool
@@ -102,7 +102,7 @@ class Cons extends Sequence
 
     public function reverse(): Sequence
     {
-        return self::reverse_(Nil::instance, $this)->eval();
+        return self::reverse_(Sequence::nil(), $this)->eval();
     }
 
     private static function foldLeft_($acc, Sequence $s, callable $f): TailCall

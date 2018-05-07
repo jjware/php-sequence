@@ -17,9 +17,9 @@ abstract class Sequence
         return self::$n;
     }
 
-    public static function cons($value)
+    public static function cons($h, Sequence $t)
     {
-        return new Cons($value);
+        return new Cons($h, $t);
     }
 
     public abstract function head();
