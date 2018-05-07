@@ -51,7 +51,7 @@ class Nil extends Sequence
         return $this;
     }
 
-    public function reverse(): Sequenece
+    public function reverse(): Sequence
     {
         return $this;
     }
