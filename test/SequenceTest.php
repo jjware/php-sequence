@@ -101,4 +101,22 @@ class SequenceTest extends TestCase
         $s = Sequence::nil();
         $s->take(2);
     }
+
+    public function testConsTakeWhile()
+    {
+        $s = Sequence::cons(1, Sequence::cons(2, Sequence::cons(3, Sequence::nil())));
+        $f = function ($item) {
+            return $item < 3;
+        };
+        $this->assertEquals(Sequence::cons(1, Sequence::cons(2, Sequence::nil())), $s->takeWhile($f));
+    }
+
+    public function testNilTakeWhile()
+    {
+        $s = Sequence::nil();
+        $f = function ($item) {
+            return $item < 3;
+        };
+        $this->assertEquals($s, $s->takeWhile($f));
+    }
 }
