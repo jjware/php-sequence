@@ -86,7 +86,7 @@ class Cons extends Sequence
             : TailCall::ret($s);
     }
 
-    public function dropWhile(callable $p): \JJWare\Utils\Sequence\Sequence
+    public function dropWhile(callable $p): Sequence
     {
         return self::dropWhile_($this, $p)->eval();
     }
@@ -98,5 +98,39 @@ class Cons extends Sequence
             : TailCall::sus(function () use ($acc, $s) {
                 return self::reverse_(new Cons($s->head(), $acc), $s->tail());
             });
+    }
+
+    public function reverse(): Sequence
+    {
+        return self::reverse_(Nil::instance, $this)->eval();
+    }
+
+    private static function foldLeft_($acc, Sequence $s, callable $f): TailCall
+    {
+        return $s->isEmpty()
+            ? TailCall::ret($acc)
+            : TailCall::sus(function () use ($acc, $s, $f) {
+                return self::foldLeft_(call_user_func(call_user_func($f, $acc), $s->head()), $s->tail(), $f);
+            });
+    }
+
+    public function foldLeft($acc, callable $f)
+    {
+        return self::foldLeft_($acc, $this, $f)->eval();
+    }
+
+    public function foldRight($acc, callable $f)
+    {
+        return $this->reverse()->foldLeft($this->head(), $f);
+    }
+
+    public function reduce(callable $f)
+    {
+        return $this->tail()->foldLeft($this->head(), $f);
+    }
+
+    public function length(): int
+    {
+        return $this->l;
     }
 }
