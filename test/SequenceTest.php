@@ -86,4 +86,19 @@ class SequenceTest extends TestCase
         $s = Sequence::nil();
         $this->assertTrue($s->isEmpty());
     }
+
+    public function testConsTake()
+    {
+        $s = Sequence::cons("a", Sequence::cons("b", Sequence::cons("c", Sequence::nil())));
+        $this->assertEquals(Sequence::cons("a", Sequence::cons("b", Sequence::nil())), $s->take(2));
+    }
+
+    /**
+     * @expectedException BadMethodCallException
+     */
+    public function testNilTake()
+    {
+        $s = Sequence::nil();
+        $s->take(2);
+    }
 }
