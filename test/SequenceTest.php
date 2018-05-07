@@ -161,4 +161,9 @@ class SequenceTest extends TestCase
         $s = Sequence::nil();
         $this->assertEquals($s, $s->reverse());
     }
+
+    public function testConsFoldLeft()
+    {
+        
+    }
 }
