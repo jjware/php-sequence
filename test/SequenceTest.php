@@ -74,4 +74,16 @@ class SequenceTest extends TestCase
         $s = Sequence::nil();
         $this->assertEquals(Option::none(), $s->tailOption());
     }
+
+    public function testConsIsEmpty()
+    {
+        $s = Sequence::cons("a", Sequence::nil());
+        $this->assertFalse($s->isEmpty());
+    }
+
+    public function testNilIsEmpty()
+    {
+        $s = Sequence::nil();
+        $this->assertTrue($s->isEmpty());
+    }
 }
