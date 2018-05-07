@@ -131,4 +131,22 @@ class SequenceTest extends TestCase
         $s = Sequence::nil();
         $this->assertEquals($s, $s->drop(2));
     }
+
+    public function testConsDropWhile()
+    {
+        $s = Sequence::cons(1, Sequence::cons(2, Sequence::cons(3, Sequence::nil())));
+        $f = function ($item) {
+            return $item < 3;
+        };
+        $this->assertEquals(Sequence::cons(3, Sequence::nil()), $s->dropWhile($f));
+    }
+
+    public function testNilDropWhile()
+    {
+        $s = Sequence::nil();
+        $f = function ($item) {
+            return $item < 3;
+        };
+        $this->assertEquals($s, $s->dropWhile($f));
+    }
 }
