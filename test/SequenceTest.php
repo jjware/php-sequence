@@ -149,4 +149,16 @@ class SequenceTest extends TestCase
         };
         $this->assertEquals($s, $s->dropWhile($f));
     }
+
+    public function testConsReverse()
+    {
+        $s = Sequence::cons(1, Sequence::cons(2, Sequence::cons(3, Sequence::nil())));
+        $this->assertEquals(Sequence::cons(3, Sequence::cons(2, Sequence::cons(1, Sequence::nil()))), $s->reverse());
+    }
+
+    public function testNilReverse()
+    {
+        $s = Sequence::nil();
+        $this->assertEquals($s, $s->reverse());
+    }
 }
