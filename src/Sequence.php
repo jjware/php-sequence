@@ -7,6 +7,21 @@ use JJWare\Utils\TailCall\TailCall;
 
 abstract class Sequence 
 {
+    private static $n = null;
+
+    public static function nil(): Nil
+    {
+        if (is_null(self::$n)) {
+            self::$n = new Nil();
+        }
+        return self::$n;
+    }
+
+    public static function cons($value)
+    {
+        return new Cons($value);
+    }
+
     public abstract function head();
     public abstract function tail();
     public abstract function take(int $n): Sequence;
