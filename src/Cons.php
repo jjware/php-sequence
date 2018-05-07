@@ -63,7 +63,7 @@ class Cons extends Sequence
 
     private static function drop_(Sequence $s, int $n): TailCall
     {
-        return $n <= 0 || s.isEmpty()
+        return $n <= 0 || $s->isEmpty()
             ? TailCall::ret($s)
             : TailCall::sus(function () use ($s, $n) {
                 return self::drop_($s->tail(), $n - 1);
@@ -79,7 +79,7 @@ class Cons extends Sequence
 
     private static function dropWhile_(Sequence $s, callable $p): TailCall
     {
-        return !$s.isEmpty() && call_user_func($p, $s->head())
+        return !$s->isEmpty() && call_user_func($p, $s->head())
             ? TailCall::sus(function () use ($s, $p) {
                 return self::dropWhile_($s->tail(), $p);
             })
